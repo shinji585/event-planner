@@ -1,14 +1,17 @@
+import uuid
+
 from pydantic import BaseModel, EmailStr, Field
 from models.events import Event
 
 
 class UserBase(BaseModel):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4)
     email: EmailStr
     username: str = Field(..., min_length=1, max_length=20)
 
     model_config = {
         "json_schema_extra": {
-            "example": {"username": "francisco", "email": "fastapi@packt.com"}
+            "example": {"username": "Francisco", "email": "fastapi@packt.com"}
         }
     }
 
@@ -23,7 +26,7 @@ class UserCreate(UserBase, PasswordMixin):
     model_config = {
         "json_schema_extra": {
             "example": {
-                "username": "francisco",
+                "username": "Francisco",
                 "email": "fastapi@packt.com",
                 "password": "strongpassword",
             }
@@ -47,7 +50,7 @@ class UserOut(UserBase):
     model_config = {
         "json_schema_extra": {
             "example": {
-                "username": "francisco",
+                "username": "Francisco",
                 "email": "fastapi@packt.com",
                 "events": [],
             }
