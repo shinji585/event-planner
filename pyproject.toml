@@ -1,12 +1,1 @@
-[project]
-name = "event-planer-app"
-version = "0.1.0"
-description = "My backend project"
-authors = [
-    { name = "toji" }
-]
-dependencies = [
-    "fastapi",
-    "uvicorn",
-    "pydantic[email]",
-]
+requires-python = ">=3.12"
