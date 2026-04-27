@@ -1,13 +1,32 @@
 import uuid
 
-from pydantic import  Field, AnyUrl, BaseModel
+from pydantic import  Field, AnyUrl, BaseModel, ConfigDict
 
 class ImageBase(BaseModel):
     url: AnyUrl
 
+
 class ImageCreate(ImageBase):
-    pass
+    model_config = ConfigDict(
+        extra='forbid',
+        from_attributes=True,
+        json_schema_extra={
+            "example": {
+                "url": "https://www.jetbrains.com/academy"
+            }
+        }
+    )
 
 class ImageOut(ImageBase):
-    id: uuid.UUID = Field(default_factory=uuid.uuid4)
+    id: uuid.UUID
 
+    model_config = ConfigDict(
+        extra='forbid',
+        from_attributes=True,
+        json_schema_extra={
+            "examples": {
+                "id": "123e4567-e89b-12d3-a456-426614174000",
+                "url": "https://www.jetbrains.com/academy"
+            }
+        }
+    )
