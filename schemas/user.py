@@ -29,6 +29,7 @@ class Password(BaseModel):
     model_config = ConfigDict(
         extra="forbid",
         from_attributes=True,
+        str_strip_whitespace=False,
         json_schema_extra={
             "examples": {
                     "password": "secret_password123"
@@ -39,12 +40,14 @@ class Password(BaseModel):
 
 class UserCreate(UserBase, Password):
     phone: PhoneNumber
+    id: uuid.UUID
 
     model_config = ConfigDict(
         extra="forbid",
         from_attributes=True,
         json_schema_extra={
             "examples": {
+                    "id": "123e4567-e89b-12d3-a456-426614174000",
                     "name": "Francisco",
                     "email": "fastapi@packt.com",
                     "password": "secret_password123",

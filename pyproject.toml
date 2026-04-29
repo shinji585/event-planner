@@ -1,1 +1,27 @@
-requires-python = ">=3.12"
+[project]
+name = "planner"
+version = "0.1.0"
+description = "Application to plan events"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi==0.135.3",
+    "uvicorn==0.44.0",
+    "pydantic[email]==2.13.1",
+    "pydantic-extra-types==2.11.1",
+    "phonenumbers==9.0.29",
+    "annotated-doc==0.0.4",
+    "annotated-types==0.7.0",
+    "anyio==4.13.0",
+    "click==8.3.2",
+    "dnspython==2.8.0",
+    "email-validator==2.3.0",
+    "h11==0.16.0",
+    "idna==3.11",
+    "pip==25.3",
+    "pydantic-core==2.46.1",
+    "starlette==1.0.0",
+    "typing-extensions==4.15.0",
+    "typing-inspection==0.4.2",
+    "uv==0.11.6",
+]

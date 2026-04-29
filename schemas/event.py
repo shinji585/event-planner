@@ -4,7 +4,7 @@ import uuid
 from typing import Annotated
 
 from schemas.image import ImageOut
-from schemas.participation import  ParticipationOut
+from schemas.participation import ParticipationOut
 
 
 class EventBase(BaseModel):
@@ -14,21 +14,25 @@ class EventBase(BaseModel):
 
 
 class EventCreate(EventBase):
+    id: uuid.UUID
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
         from_attributes=True,
         json_schema_extra={
             "example": {
                 "title": "Reposición: Creatina Monohidrato",
                 "description": "Ingreso de 500 unidades. Lote L-992. Verificación de caducidad: 2028-12.",
-                "event_date": "2026-04-26T09:00:00"
+                "event_date": "2026-04-26T09:00:00",
             }
-        }
+        },
     )
+
 
 class EventOut(EventBase):
     id: uuid.UUID
-    join_code: Annotated[str,Field(min_length=5,max_length=5,pattern=r"^[a-z0-9]{5}$")]
+    join_code: Annotated[
+        str, Field(min_length=5, max_length=5, pattern=r"^[a-z0-9]{5}$")
+    ]
 
     model_config = ConfigDict(
         extra="forbid",
@@ -39,9 +43,9 @@ class EventOut(EventBase):
                 "join_code": "4x7tp",
                 "title": "Reposición: Creatina Monohidrato",
                 "description": "Ingreso de 500 unidades. Lote L-992. Verificación de caducidad: 2028-12.",
-                "event_date": "2026-04-26T09:00:00"
+                "event_date": "2026-04-26T09:00:00",
             }
-        }
+        },
     )
 
 
@@ -51,12 +55,17 @@ class EventDetail(EventBase):
     images: Annotated[list[ImageOut], Field(default_factory=list)]
 
     model_config = ConfigDict(
-        extra='forbid',
+        extra="forbid",
         from_attributes=True,
         json_schema_extra={
             "example": {
                 "id": "123e4567-e89b-12d3-a456-426614174000",
-                "participants": [{"id": "d290f1ee-e89b-12d3-a456-426614174000", "role": "participant"}],
+                "participants": [
+                    {
+                        "id": "d290f1ee-e89b-12d3-a456-426614174000",
+                        "role": "participant",
+                    }
+                ],
                 "images": [
                     {
                         "id": "e110b2cc-e89b-12d3-a456-426614174000",
@@ -65,7 +74,7 @@ class EventDetail(EventBase):
                 ],
                 "title": "Reposición: Creatina Monohidrato",
                 "description": "Ingreso de 500 unidades. Lote L-992. Verificación de caducidad: 2028-12.",
-                "event_date": "2026-04-26T09:00:00"
+                "event_date": "2026-04-26T09:00:00",
             }
-        }
+        },
     )
