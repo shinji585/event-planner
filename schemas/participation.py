@@ -4,9 +4,11 @@ from typing import  Annotated
 from schemas.enums import Role
 
 
-class ParticipationOut(BaseModel):
+class ParticipationBase(BaseModel):
     user_id: uuid.UUID
     role: Role
+
+class ParticipationOut(ParticipationBase):
 
     model_config = ConfigDict(
         extra="forbid",
@@ -20,13 +22,13 @@ class ParticipationOut(BaseModel):
     )
 
 class JoinEvent(BaseModel):
-    join_code: Annotated[str, Field(min_length=5,max_length=5)]
+    join_code: Annotated[str, Field(min_length=7,max_length=7)]
 
     model_config = ConfigDict(
         extra='forbid',
         json_schema_extra={
             "example": {
-                "join_code": "4x7tp"
+                "join_code": "A9F7K2B"
             }
         }
     )

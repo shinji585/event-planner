@@ -14,7 +14,7 @@ class EventBase(BaseModel):
 
 
 class EventCreate(EventBase):
-    id: uuid.UUID
+
     model_config = ConfigDict(
         extra="forbid",
         from_attributes=True,
@@ -31,7 +31,7 @@ class EventCreate(EventBase):
 class EventOut(EventBase):
     id: uuid.UUID
     join_code: Annotated[
-        str, Field(min_length=5, max_length=5, pattern=r"^[a-z0-9]{5}$")
+        str, Field(min_length=7, max_length=7, pattern=r"^[a-z0-9]{5}$")
     ]
 
     model_config = ConfigDict(
@@ -40,7 +40,7 @@ class EventOut(EventBase):
         json_schema_extra={
             "example": {
                 "id": "123e4567-e89b-12d3-a456-426614174000",
-                "join_code": "4x7tp",
+                "join_code": "A9F7K2B",
                 "title": "Reposición: Creatina Monohidrato",
                 "description": "Ingreso de 500 unidades. Lote L-992. Verificación de caducidad: 2028-12.",
                 "event_date": "2026-04-26T09:00:00",
