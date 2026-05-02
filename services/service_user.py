@@ -68,8 +68,4 @@ class UserServices:
 
     def get_all_users(self) -> list[UserOut]:
         users = self.repo.load()
-
-        if not users:
-            return []
-
         return [UserOut.model_validate(u) for u in users]
