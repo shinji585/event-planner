@@ -4,4 +4,17 @@
     <option name="enabled" value="true" />
     <option name="sdkName" value="Python 3.14 (planner)" />
   </component>
+  <component name="RuffModuleSettingsStorage">
+    <option name="moduleSettings">
+      <map>
+        <entry key="planner@1">
+          <value>
+            <RuffModuleSettingsData>
+              <option name="enabled" value="true" />
+            </RuffModuleSettingsData>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
 </project>

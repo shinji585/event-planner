@@ -39,4 +39,19 @@ dependencies = [
 dev = [
     "mypy>=1.20.2",
     "pytest>=9.0.3",
+    "ruff>=0.15.12",
+]
+
+# Configuración base (como el límite de caracteres)
+[tool.ruff]
+line-length = 88
+
+# Todo lo que tenga que ver con "linting" (análisis) va aquí ahora
+[tool.ruff.lint]
+select = [
+    "E",   # Errores de estilo (pycodestyle)
+    "F",   # Errores de lógica (pyflakes)
+    "I",   # Ordenar imports (isort)
+    "UP",  # Modernizar sintaxis (pyupgrade)
+    "B",   # Detectar bugs potenciales (flake8-bugbear)
 ]

@@ -1,7 +1,8 @@
-from pydantic import BaseModel, Field, ConfigDict
-from datetime import datetime
 import uuid
+from datetime import datetime
 from typing import Annotated
+
+from pydantic import BaseModel, ConfigDict, Field
 
 from schemas.image import ImageOut
 from schemas.participation import ParticipationOut
@@ -14,7 +15,6 @@ class EventBase(BaseModel):
 
 
 class EventCreate(EventBase):
-
     model_config = ConfigDict(
         extra="forbid",
         from_attributes=True,

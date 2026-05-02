@@ -1,6 +1,6 @@
-from fastapi import  APIRouter,status,HTTPException
+from fastapi import APIRouter
 
-from schemas.user import  UserCreate, UserLogin, UserOut
+from schemas.user import UserOut
 
 users_db: list[UserOut]
 

@@ -1,34 +1,14 @@
 import uuid
-from pathlib import Path
-import json
 
-
+from database.repository import BaseRepository
 from schemas.user import UserCreate, UserOut
 
 
 class UserServices:
+    def __init__(self):
+        self.repo = BaseRepository("users.json")
 
-    BASE_DIR: Path = Path(__file__).resolve().parent
-    DB_PATH = BASE_DIR / "db_simulated"
-    USERS_PATH = DB_PATH / "users.json"
-
-    def __load_users(self) -> list[dict]:
-        self.USERS_PATH.parent.mkdir(parents=True, exist_ok=True)
-
-        if not self.USERS_PATH.exists():
-            return []
-        content = self.USERS_PATH.read_text()
-
-        if not content.strip():
-            return  []
-
-        return  json.loads(content)
-
-    def __save_users(self,users: list[dict]) -> None:
-        self.USERS_PATH.parent.mkdir(parents=True, exist_ok=True)
-        self.USERS_PATH.write_text(json.dumps(users, indent=4))
-
-    def create_user(self,**data) -> UserOut:
+    def create_user(self, **data) -> UserOut:
         # create the instance of user and validate it
         user = UserCreate(**data)
 
@@ -39,7 +19,7 @@ class UserServices:
         user_data["id"] = str(uuid.uuid4())
         user_data["email"] = user_data["email"].lower()
 
-        users = self.__load_users()
+        users = self.repo.load()
 
         for existing_user in users:
             if existing_user["email"] == user_data["email"]:
@@ -47,39 +27,33 @@ class UserServices:
 
         # append the new user
         users.append(user_data)
-        self.__save_users(users)
+        self.repo.save(users)
 
-        return  UserOut.model_validate(user_data)
+        return UserOut.model_validate(user_data)
 
     def get_user_by_id(self, id_user: str) -> UserOut:
-        users = self.__load_users()
+        users = self.repo.load()
 
-        user = next(
-            (u for u in users if u["id"] == id_user),
-            None
-        )
+        user = next((u for u in users if u["id"] == id_user), None)
 
         if user is None:
             raise LookupError("User not found")
 
-        return  UserOut.model_validate(user)
+        return UserOut.model_validate(user)
 
-    def get_user_by_email(self,email_user: str) -> UserOut:
-        users = self.__load_users()
+    def get_user_by_email(self, email_user: str) -> UserOut:
+        users = self.repo.load()
         email_user = email_user.lower()
 
-        user = next(
-            (u for u in users if u["email"] == email_user),
-            None
-        )
+        user = next((u for u in users if u["email"] == email_user), None)
 
         if user is None:
-            raise  LookupError("User not found")
+            raise LookupError("User not found")
 
-        return  UserOut.model_validate(user)
+        return UserOut.model_validate(user)
 
-    def authenticate_user(self,email_user: str, password_user: str) -> UserOut:
-        users = self.__load_users()
+    def authenticate_user(self, email_user: str, password_user: str) -> UserOut:
+        users = self.repo.load()
         email_user = email_user.lower()
 
         user = next((u for u in users if u["email"] == email_user), None)
@@ -93,5 +67,9 @@ class UserServices:
         return UserOut.model_validate(user)
 
     def get_all_users(self) -> list[UserOut]:
-        users = self.__load_users()
-        return  [UserOut.model_validate(u) for u in users]
+        users = self.repo.load()
+
+        if not users:
+            return []
+
+        return [UserOut.model_validate(u) for u in users]

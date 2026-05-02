@@ -1,6 +1,6 @@
 import uuid
 
-from pydantic import  AnyUrl, BaseModel, ConfigDict
+from pydantic import AnyUrl, BaseModel, ConfigDict
 
 
 class ImageBase(BaseModel):

@@ -1,6 +1,7 @@
 import uuid
 from typing import Annotated
-from pydantic import BaseModel, EmailStr, Field, ConfigDict
+
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 from pydantic_extra_types.phone_numbers import PhoneNumber
 
 
@@ -15,11 +16,8 @@ class UserBase(BaseModel):
         str_strip_whitespace=True,
         from_attributes=True,
         json_schema_extra={
-            "example": {
-                    "name": "Francisco",
-                    "email": "fastapi@packt.com"
-            }
-        }
+            "example": {"name": "Francisco", "email": "fastapi@packt.com"}
+        },
     )
 
 
@@ -30,11 +28,7 @@ class Password(BaseModel):
         extra="forbid",
         from_attributes=True,
         str_strip_whitespace=False,
-        json_schema_extra={
-            "example": {
-                    "password": "secret_password123"
-            }
-        }
+        json_schema_extra={"example": {"password": "secret_password123"}},
     )
 
 
@@ -46,12 +40,12 @@ class UserCreate(UserBase, Password):
         from_attributes=True,
         json_schema_extra={
             "example": {
-                    "name": "Francisco",
-                    "email": "fastapi@packt.com",
-                    "password": "secret_password123",
-                    "phone": "3234286431"
+                "name": "Francisco",
+                "email": "fastapi@packt.com",
+                "password": "secret_password123",
+                "phone": "3234286431",
             }
-        }
+        },
     )
 
 
@@ -62,11 +56,8 @@ class UserLogin(Password):
         extra="forbid",
         from_attributes=True,
         json_schema_extra={
-            "example": {
-                    "email": "fastapi@packt.com",
-                    "password": "secret_password123"
-            }
-        }
+            "example": {"email": "fastapi@packt.com", "password": "secret_password123"}
+        },
     )
 
 
@@ -78,9 +69,9 @@ class UserOut(UserBase):
         from_attributes=True,
         json_schema_extra={
             "example": {
-                    "id": "123e4567-e89b-12d3-a456-426614174000",
-                    "name": "Francisco",
-                    "email": "fastapi@packt.com",
+                "id": "123e4567-e89b-12d3-a456-426614174000",
+                "name": "Francisco",
+                "email": "fastapi@packt.com",
             }
-        }
+        },
     )
